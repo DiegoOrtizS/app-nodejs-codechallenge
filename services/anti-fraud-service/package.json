@@ -1,7 +1,7 @@
 {
-  "name": "app-nodejs-codechallenge-transaction-service",
+  "name": "app-nodejs-codechallenge-anti-fraud-service",
   "version": "1.0.0",
-  "description": "Node.js code challenge for a backend developer position at Yape",
+  "description": "Anti fraud microservice for a backend developer position at Yape",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
@@ -10,8 +10,5 @@
   },
   "author": "Diego Ortiz",
   "license": "MIT",
-  "private": true,
-  "dependencies": {
-    "kafkajs": "^2.2.4"
-  }
+  "private": true
 }
