@@ -136,6 +136,7 @@ The project was built using modern backend technologies to ensure scalability, m
 
 The project follows a modular and layered architecture inspired by Clean Architecture and Domain-Driven Design. Here's a breakdown:
 
+```plaintext
 src/
 ├── application/               # Business logic (services)
 ├── domain/                    # Entities and domain models
@@ -148,6 +149,7 @@ src/
 │   └── controllers/
 ├── main.ts                    # App bootstrap and setup
 └── app.module.ts              # Root application module
+```
 
 ## 🧠 Architecture
 
@@ -158,6 +160,7 @@ The application follows a layered architecture inspired by **Clean Architecture*
 - **Infrastructure Layer**: Responsible for external concerns such as Kafka messaging and database persistence.
 - **Presentation Layer**: The REST API (controllers) that handles HTTP requests and responses.
 
+```plaintext
 [ Controller Layer (interface) ]
            |
 [ Application Layer (services) ]
@@ -165,6 +168,7 @@ The application follows a layered architecture inspired by **Clean Architecture*
 [ Domain Layer (entities, value objects) ]
            |
 [ Infrastructure Layer (DB, Kafka, Prisma) ]
+```
 
 ## 📌 Noteworthy Features
 
