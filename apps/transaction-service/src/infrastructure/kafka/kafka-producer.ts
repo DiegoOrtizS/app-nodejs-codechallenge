@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Kafka } from 'kafkajs';
+import { Transaction } from '../../domain/entities/transaction.entity';
 
 @Injectable()
-export class KafkaProducer {
+export class KafkaProducer implements OnModuleInit {
     private readonly kafka = new Kafka({
         clientId: 'transaction-service',
         brokers: ['localhost:9092'],
@@ -10,7 +11,11 @@ export class KafkaProducer {
 
     private readonly producer = this.kafka.producer();
 
-    async sendTransactionToAntiFraud(transaction: any): Promise<void> {
+    async onModuleInit() {
+        await this.producer.connect();
+    }
+
+    async sendTransactionToAntiFraud(transaction: Transaction): Promise<void> {
         await this.producer.send({
             topic: 'transaction-created',
             messages: [
