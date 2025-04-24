@@ -5,7 +5,7 @@ import { Kafka, Producer } from 'kafkajs';
 export class KafkaProducer implements OnModuleInit {
   private readonly kafka = new Kafka({
     clientId: 'anti-fraud-producer',
-    brokers: ['localhost:9092'],
+    brokers: ['kafka:29092'],
   });
 
   private readonly producer: Producer = this.kafka.producer();

@@ -2,11 +2,11 @@
   "name": "app-nodejs-codechallenge-anti-fraud-service",
   "version": "1.0.0",
   "description": "Anti fraud microservice for a backend developer position at Yape",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "dev": "ts-node-dev --respawn src/main.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "NODE_ENV=prod node dist/index.js"
+    "start": "NODE_ENV=prod node dist/main.js"
   },
   "author": "Diego Ortiz",
   "license": "MIT",

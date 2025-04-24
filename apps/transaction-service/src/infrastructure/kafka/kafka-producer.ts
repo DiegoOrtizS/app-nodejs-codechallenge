@@ -6,7 +6,7 @@ import { Transaction } from '../../domain/entities/transaction.entity';
 export class KafkaProducer implements OnModuleInit {
     private readonly kafka = new Kafka({
         clientId: 'transaction-service',
-        brokers: ['localhost:9092'],
+        brokers: ['kafka:29092'],
     });
 
     private readonly producer = this.kafka.producer();

@@ -10,7 +10,7 @@ async function bootstrap() {
         options: {
         client: {
             clientId: 'transaction-service',
-            brokers: ['localhost:9092'],
+            brokers: ['kafka:29092'],
         },
         consumer: {
             groupId: 'transaction-validator-consumer',
