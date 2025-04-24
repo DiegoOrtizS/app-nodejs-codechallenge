@@ -17,6 +17,5 @@ async function bootstrap() {
   });
 
   await app.listen();
-  console.log('Kafka consumer microservice is listening...');
 }
 bootstrap();

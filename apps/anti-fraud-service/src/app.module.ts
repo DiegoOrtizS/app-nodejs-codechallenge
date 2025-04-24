@@ -4,6 +4,7 @@ import { KafkaProducer } from './infrastructure/kafka/kafka-producer';
 import { AntiFraudService } from './application/services/transaction.service';
 
 @Module({
-  providers: [AntiFraudController, AntiFraudService, KafkaProducer],
+  controllers: [AntiFraudController],
+  providers: [AntiFraudService, KafkaProducer],
 })
 export class AppModule {}

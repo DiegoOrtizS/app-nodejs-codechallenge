@@ -14,14 +14,13 @@ export class KafkaProducer implements OnModuleInit {
     await this.producer.connect();
   }
 
-  async sendResult(result: 'approved' | 'rejected', transactionId: string) {
+  async sendResult(result: 'approved' | 'rejected', transactionExternalId: string) {
     await this.producer.send({
       topic: 'transaction-validated',
       messages: [
         {
-          key: transactionId,
           value: JSON.stringify({
-            transactionId,
+            transactionExternalId,
             status: result,
           }),
         },

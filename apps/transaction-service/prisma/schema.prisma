@@ -15,8 +15,7 @@ datasource db {
 }
 
 model Transaction {
-  id                       String   @id @default(uuid()) @map("id")
-  transactionExternalId    String   @unique @map("transaction_external_id")
+  transactionExternalId    String   @id @unique @map("transaction_external_id")
   accountExternalIdDebit   String   @map("account_external_id_debit")
   accountExternalIdCredit  String   @map("account_external_id_credit")
   value                    Float    @map("value")

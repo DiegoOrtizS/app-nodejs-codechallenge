@@ -8,8 +8,7 @@ export class AntiFraudController {
   constructor(private readonly antiFraudService: AntiFraudService) {}
 
   @MessagePattern('transaction-created')
-  async handleTransaction(@Payload() message: { value: Transaction }) {
-    console.log('🔥 Received from Kafka:', message.value);
-    await this.antiFraudService.validateTransaction(message.value);
+  async handleTransaction(@Payload() message: Transaction) {
+    await this.antiFraudService.validateTransaction(message);
   }
 }

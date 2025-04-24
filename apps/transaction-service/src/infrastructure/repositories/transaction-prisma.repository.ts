@@ -35,4 +35,14 @@ export class TransactionPrismaRepository implements TransactionRepositoryPort {
       TransactionStatus[result.status as TransactionStatusEnum]()
     );
   }
+  
+  async update(transaction: Transaction): Promise<void> {
+    await this.prisma.transaction.update({
+      where: { transactionExternalId: transaction.transactionExternalId },
+      data: {
+        status: transaction.status.getValue(),
+        updatedAt: new Date(),
+      },
+    });
+  }
 }
