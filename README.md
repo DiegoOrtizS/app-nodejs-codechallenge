@@ -84,10 +84,12 @@ If you have any questions, please let us know.
 # Candidate Name: Diego Ortiz
 
 ## Execution
+### Running the Application
 ```bash
 docker-compose up -d --build
 ```
-
+### Creating a Transaction
+#### Execute approved transaction use case
 ```bash
 docker exec -it app-nodejs-codechallenge-transaction-service-1 curl -X POST http://localhost:3000/transactions \
      -H "Content-Type: application/json" \
@@ -98,7 +100,19 @@ docker exec -it app-nodejs-codechallenge-transaction-service-1 curl -X POST http
            "value": 100
          }'
 ```
-
+#### Execute approved transaction use case
+```bash
+docker exec -it app-nodejs-codechallenge-transaction-service-1 curl -X POST http://localhost:3000/transactions \
+     -H "Content-Type: application/json" \
+     -d '{
+           "accountExternalIdDebit": "ab865bf7-079d-43b3-80f8-cd6dc35ba33b",
+           "accountExternalIdCredit": "fe219ec9-3e32-4d41-9add-66bef431179c",
+           "tranferTypeId": 1,
+           "value": 1001
+         }'
+```
+### Retrieving a Transaction
+#### Execute get transaction use case
 ```bash
 docker exec -it app-nodejs-codechallenge-transaction-service-1 curl -X GET http://localhost:3000/transactions/{transactionExternalId}
 ```
