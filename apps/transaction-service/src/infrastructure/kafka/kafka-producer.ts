@@ -1,12 +1,13 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import { Kafka } from "kafkajs";
 import { Transaction } from "../../domain/entities/transaction.entity";
+import { BROKERS } from "src/utils/constants";
 
 @Injectable()
 export class KafkaProducer implements OnModuleInit {
   private readonly kafka = new Kafka({
     clientId: "transaction-service",
-    brokers: ["kafka:29092"],
+    brokers: BROKERS,
   });
 
   private readonly producer = this.kafka.producer();

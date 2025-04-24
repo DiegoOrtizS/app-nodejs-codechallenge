@@ -1,11 +1,10 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from "@nestjs/platform-fastify";
+import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 import { MicroserviceOptions, Transport } from "@nestjs/microservices";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import { ValidationPipe } from '@nestjs/common';
+import { BROKERS } from "./utils/constants";
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -13,12 +12,18 @@ async function bootstrap(): Promise<void> {
     new FastifyAdapter(),
   );
 
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+  }));
+
   const config = new DocumentBuilder()
     .setTitle("Transaction Service")
     .setDescription("API for managing transactions")
     .setVersion("1.0")
     .build();
-
+  
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("/docs", app, document);
 
@@ -27,7 +32,7 @@ async function bootstrap(): Promise<void> {
     options: {
       client: {
         clientId: "transaction-service",
-        brokers: ["kafka:29092"],
+        brokers: BROKERS,
       },
       consumer: {
         groupId: "transaction-validator-consumer",
