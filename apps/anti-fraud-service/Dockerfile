@@ -11,6 +11,6 @@ ENV CI=true
 RUN pnpm install --frozen-lockfile
 RUN pnpm run build
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["pnpm", "start"]
