@@ -1,22 +1,25 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Kafka, Producer } from 'kafkajs';
+import { Injectable, OnModuleInit } from "@nestjs/common";
+import { Kafka, Producer } from "kafkajs";
 
 @Injectable()
 export class KafkaProducer implements OnModuleInit {
   private readonly kafka = new Kafka({
-    clientId: 'anti-fraud-producer',
-    brokers: ['kafka:29092'],
+    clientId: "anti-fraud-producer",
+    brokers: ["kafka:29092"],
   });
 
   private readonly producer: Producer = this.kafka.producer();
 
-  async onModuleInit() {
+  async onModuleInit(): Promise<void> {
     await this.producer.connect();
   }
 
-  async sendResult(result: 'approved' | 'rejected', transactionExternalId: string) {
+  async sendResult(
+    result: "approved" | "rejected",
+    transactionExternalId: string,
+  ): Promise<void> {
     await this.producer.send({
-      topic: 'transaction-validated',
+      topic: "transaction-validated",
       messages: [
         {
           value: JSON.stringify({

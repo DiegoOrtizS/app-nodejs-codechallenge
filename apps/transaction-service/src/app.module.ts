@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
-import { TransactionPrismaRepository } from './infrastructure/repositories/transaction-prisma.repository';
-import { TransactionController } from './interface/controllers/transaction.controller';
-import { PrismaModule } from './infrastructure/repositories/prisma.module';
-import { TransactionService } from './application/services/transaction.service';
-import { KafkaProducer } from './infrastructure/kafka/kafka-producer';
+import { Module } from "@nestjs/common";
+import { TransactionPrismaRepository } from "./infrastructure/repositories/transaction-prisma.repository";
+import { TransactionController } from "./interface/controllers/transaction.controller";
+import { PrismaModule } from "./infrastructure/repositories/prisma.module";
+import { TransactionService } from "./application/services/transaction.service";
+import { KafkaProducer } from "./infrastructure/kafka/kafka-producer";
 
 @Module({
   imports: [PrismaModule],
@@ -12,7 +12,7 @@ import { KafkaProducer } from './infrastructure/kafka/kafka-producer';
     TransactionService,
     KafkaProducer,
     {
-      provide: 'TransactionRepositoryPort',
+      provide: "TransactionRepositoryPort",
       useClass: TransactionPrismaRepository,
     },
   ],

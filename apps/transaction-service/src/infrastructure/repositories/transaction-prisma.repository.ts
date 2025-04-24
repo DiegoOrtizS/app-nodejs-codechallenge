@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { TransactionRepositoryPort } from '../../application/ports/transaction-repository.port';
-import { Transaction } from '../../domain/entities/transaction.entity';
-import { TransactionStatus, TransactionStatusEnum } from '../../domain/value-objects/transaction-status.vo';
-import { PrismaClient } from '@prisma/client';
+import { Injectable } from "@nestjs/common";
+import { TransactionRepositoryPort } from "../../application/ports/transaction-repository.port";
+import { Transaction } from "../../domain/entities/transaction.entity";
+import {
+  TransactionStatus,
+  TransactionStatusEnum,
+} from "../../domain/value-objects/transaction-status.vo";
+import { PrismaClient } from "@prisma/client";
 
 @Injectable()
 export class TransactionPrismaRepository implements TransactionRepositoryPort {
@@ -39,7 +42,7 @@ export class TransactionPrismaRepository implements TransactionRepositoryPort {
       result.updatedAt,
     );
   }
-  
+
   async update(transaction: Transaction): Promise<void> {
     await this.prisma.transaction.update({
       where: { transactionExternalId: transaction.transactionExternalId },

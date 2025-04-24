@@ -1,18 +1,23 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { TransactionRepositoryPort } from '../ports/transaction-repository.port';
-import { CreateTransactionDto } from '../../dto/create-transaction.dto';
-import { Transaction } from '../../domain/entities/transaction.entity';
-import { TransactionStatus, TransactionStatusEnum } from '../../domain/value-objects/transaction-status.vo';
-import { KafkaProducer } from '../../infrastructure/kafka/kafka-producer';
+import { Inject, Injectable, Logger, NotFoundException } from "@nestjs/common";
+import { TransactionRepositoryPort } from "../ports/transaction-repository.port";
+import { CreateTransactionDto } from "../../dto/create-transaction.dto";
+import { Transaction } from "../../domain/entities/transaction.entity";
+import {
+  TransactionStatus,
+  TransactionStatusEnum,
+} from "../../domain/value-objects/transaction-status.vo";
+import { KafkaProducer } from "../../infrastructure/kafka/kafka-producer";
 
 @Injectable()
 export class TransactionService {
+  private readonly logger = new Logger(TransactionService.name);
+
   constructor(
-    @Inject('TransactionRepositoryPort')
+    @Inject("TransactionRepositoryPort")
     private readonly repository: TransactionRepositoryPort,
     private readonly kafkaProducer: KafkaProducer,
   ) {}
-  
+
   async createTransaction(dto: CreateTransactionDto): Promise<Transaction> {
     const transaction = new Transaction(
       crypto.randomUUID(),
@@ -28,7 +33,7 @@ export class TransactionService {
     return transaction;
   }
 
-  async getTransactionById(id: string): Promise<Object> {
+  async getTransactionById(id: string): Promise<object> {
     const trx = await this.repository.findById(id);
     if (!trx) {
       throw new NotFoundException(`Transaction with ID ${id} not found`);
@@ -48,16 +53,21 @@ export class TransactionService {
 
   async updateStatus(transactionId: string, status: string): Promise<void> {
     if (status === TransactionStatusEnum.PENDING) {
-      console.warn('Cannot update status to pending');
+      this.logger.warn("Cannot update status to pending");
       return;
     }
+
     const transaction = await this.repository.findById(transactionId);
     if (!transaction) {
-      console.warn(`Transaction ${transactionId} not found`);
+      this.logger.warn(`Transaction ${transactionId} not found`);
       return;
     }
-  
-    transaction.status = status === TransactionStatusEnum.APPROVED ? TransactionStatus.approved() : TransactionStatus.rejected();
+
+    transaction.status =
+      status === TransactionStatusEnum.APPROVED
+        ? TransactionStatus.approved()
+        : TransactionStatus.rejected();
+
     await this.repository.update(transaction);
   }
 }
