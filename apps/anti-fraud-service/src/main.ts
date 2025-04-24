@@ -1,6 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { MicroserviceOptions, Transport } from "@nestjs/microservices";
+import { BROKERS } from "./utils/constants";
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -10,7 +11,7 @@ async function bootstrap(): Promise<void> {
       options: {
         client: {
           clientId: "anti-fraud-service",
-          brokers: ["kafka:29092"],
+          brokers: BROKERS,
         },
         consumer: {
           groupId: "anti-fraud-consumer",
