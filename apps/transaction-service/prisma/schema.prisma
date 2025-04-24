@@ -20,6 +20,7 @@ model Transaction {
   accountExternalIdCredit  String   @map("account_external_id_credit")
   value                    Float    @map("value")
   status                   String   @map("status")
+  transferTypeId           Int   @map("transfer_type_id")
   createdAt                DateTime @default(now()) @map("created_at")
   updatedAt                DateTime @updatedAt @map("updated_at")
 

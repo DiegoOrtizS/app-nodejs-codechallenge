@@ -1,4 +1,4 @@
-import { IsNumber, IsUUID } from 'class-validator';
+import { IsNumber, IsString, IsUUID } from 'class-validator';
 
 export class CreateTransactionDto {
     @IsUUID()
@@ -12,4 +12,7 @@ export class CreateTransactionDto {
 
     @IsNumber()
     value: number;
+
+    @IsNumber()
+    transferTypeId: number;
 }

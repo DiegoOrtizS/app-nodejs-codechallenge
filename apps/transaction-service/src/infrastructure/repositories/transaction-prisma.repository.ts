@@ -15,6 +15,7 @@ export class TransactionPrismaRepository implements TransactionRepositoryPort {
         accountExternalIdDebit: transaction.accountExternalIdDebit,
         accountExternalIdCredit: transaction.accountExternalIdCredit,
         value: transaction.value,
+        transferTypeId: transaction.transferTypeId,
         status: transaction.status.getValue(),
       },
     });
@@ -32,7 +33,10 @@ export class TransactionPrismaRepository implements TransactionRepositoryPort {
       result.accountExternalIdDebit,
       result.accountExternalIdCredit,
       result.value,
-      TransactionStatus[result.status as TransactionStatusEnum]()
+      TransactionStatus[result.status as TransactionStatusEnum](),
+      result.transferTypeId,
+      result.createdAt,
+      result.updatedAt,
     );
   }
   

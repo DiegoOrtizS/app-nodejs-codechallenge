@@ -16,7 +16,7 @@ export class TransactionController {
   }
 
   @Get(':transactionExternalId')
-  async get(@Param('transactionExternalId') id: string): Promise<Transaction | null> {
+  async get(@Param('transactionExternalId') id: string): Promise<Object> {
     return this.transactionService.getTransactionById(id);
   }
 

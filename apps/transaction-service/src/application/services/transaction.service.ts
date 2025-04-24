@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { TransactionRepositoryPort } from '../ports/transaction-repository.port';
 import { CreateTransactionDto } from '../../dto/create-transaction.dto';
 import { Transaction } from '../../domain/entities/transaction.entity';
@@ -20,6 +20,7 @@ export class TransactionService {
       dto.accountExternalIdCredit,
       dto.value,
       TransactionStatus.pending(),
+      dto.tranferTypeId,
     );
 
     await this.repository.save(transaction);
@@ -27,8 +28,22 @@ export class TransactionService {
     return transaction;
   }
 
-  async getTransactionById(id: string): Promise<Transaction | null> {
-    return this.repository.findById(id);
+  async getTransactionById(id: string): Promise<Object> {
+    const trx = await this.repository.findById(id);
+    if (!trx) {
+      throw new NotFoundException(`Transaction with ID ${id} not found`);
+    }
+    return {
+      transactionExternalId: trx.transactionExternalId,
+      transactionType: {
+        name: trx.transferTypeId,
+      },
+      transactionStatus: {
+        name: trx.status,
+      },
+      value: trx.value,
+      createdAt: trx.createdAt,
+    };
   }
 
   async updateStatus(transactionId: string, status: string): Promise<void> {
