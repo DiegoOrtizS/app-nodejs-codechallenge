@@ -14,6 +14,9 @@ async function bootstrap() {
         },
         consumer: {
             groupId: 'transaction-validator-consumer',
+            sessionTimeout: 30000,
+            rebalanceTimeout: 30000,
+            heartbeatInterval: 3000,
         },
         },
     });

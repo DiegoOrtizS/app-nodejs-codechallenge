@@ -12,6 +12,9 @@ async function bootstrap() {
       },
       consumer: {
         groupId: 'anti-fraud-consumer',
+        sessionTimeout: 30000,
+        rebalanceTimeout: 30000,
+        heartbeatInterval: 3000,
       },
     },
   });
